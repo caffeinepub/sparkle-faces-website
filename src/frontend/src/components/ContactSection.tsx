@@ -1,4 +1,4 @@
-import { Loader2, Mail, MapPin, Phone, Send } from "lucide-react";
+import { Loader2, Mail, MapPin, Phone, Send, User } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -39,7 +39,12 @@ export function ContactSection() {
         );
       }
       toast.success("Message sent! We'll get back to you soon.");
-      setForm({ name: "", email: "", phone: "", message: "" });
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
     } catch {
       toast.error("Failed to send message. Please try again.");
     } finally {
@@ -130,6 +135,19 @@ export function ContactSection() {
                   >
                     info@sparklefaces.net
                   </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0">
+                  <User size={18} className="text-gold" />
+                </div>
+                <div>
+                  <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
+                    Client Servicing
+                  </p>
+                  <p className="text-white/80 text-sm">
+                    Khan Hammad Shakir Hussain
+                  </p>
                 </div>
               </div>
             </div>

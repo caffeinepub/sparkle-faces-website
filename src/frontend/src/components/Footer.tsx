@@ -1,4 +1,4 @@
-import { SiInstagram, SiLinkedin, SiWhatsapp, SiYoutube } from "react-icons/si";
+import { SiInstagram, SiWhatsapp } from "react-icons/si";
 
 const footerLinks = [
   { label: "Home", href: "#home" },
@@ -11,18 +11,8 @@ const footerLinks = [
 const socials = [
   {
     Icon: SiInstagram,
-    href: "https://instagram.com/sparklefaces",
+    href: "https://www.instagram.com/sparklefaces.in?igsh=MWYxaDQ2MXVmNTF2eg==",
     label: "Instagram",
-  },
-  {
-    Icon: SiYoutube,
-    href: "https://youtube.com/@sparklefaces",
-    label: "YouTube",
-  },
-  {
-    Icon: SiLinkedin,
-    href: "https://linkedin.com/company/sparklefaces",
-    label: "LinkedIn",
   },
   { Icon: SiWhatsapp, href: "https://wa.me/919819209964", label: "WhatsApp" },
 ];
