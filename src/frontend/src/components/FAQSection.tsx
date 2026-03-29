@@ -9,11 +9,6 @@ import { useInView } from "../hooks/useInView";
 
 const faqs = [
   {
-    id: "refund",
-    q: "Is the security deposit refundable?",
-    a: "Yes, 100%. If your child is not selected after the initial process, the full security deposit is refunded. No questions asked.",
-  },
-  {
     id: "earnings",
     q: "How much can my child earn per shoot?",
     a: "From the 2nd shoot onwards, children earn ₹15,000–₹20,000 per brand shoot. The first shoot focuses on portfolio building and brand placement.",
@@ -48,7 +43,14 @@ const faqs = [
     q: "Do I need any prior experience?",
     a: "No experience needed. We provide grooming, camera confidence training, and full shoot-day guidance for every child.",
   },
+  {
+    id: "brands",
+    q: "Which brands do you work with?",
+    a: "We work with 75+ premium brands including Pantaloons, Biba, Hopscotch, Manyavar, H&M, Zara, Ajio, CeraVe, Mamaearth, and many more.",
+  },
 ];
+
+const SILVER = "rgba(160,190,230,";
 
 export function FAQSection() {
   const { ref, inView } = useInView(0.15);
@@ -57,8 +59,8 @@ export function FAQSection() {
     <section
       ref={ref as React.RefObject<HTMLElement>}
       id="faq"
-      className="relative py-20 overflow-hidden"
-      style={{ backgroundColor: "#0B0D10" }}
+      className="relative py-24 overflow-hidden"
+      style={{ backgroundColor: "#060b18" }}
     >
       <div
         style={{
@@ -67,8 +69,7 @@ export function FAQSection() {
           left: 0,
           right: 0,
           bottom: 0,
-          background:
-            "radial-gradient(ellipse at 50% 50%, rgba(200,162,90,0.05) 0%, transparent 70%)",
+          background: `radial-gradient(ellipse at 50% 50%, ${SILVER}0.04) 0%, transparent 70%)`,
           pointerEvents: "none",
         }}
       />
@@ -83,9 +84,9 @@ export function FAQSection() {
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4 text-sm font-medium"
             style={{
-              background: "rgba(200,162,90,0.12)",
-              border: "1px solid rgba(200,162,90,0.35)",
-              color: "#E8C97A",
+              background: `${SILVER}0.1)`,
+              border: `1px solid ${SILVER}0.3)`,
+              color: "#b0c4de",
             }}
           >
             💬 Common Questions
@@ -94,10 +95,10 @@ export function FAQSection() {
             className="text-3xl md:text-5xl font-bold mb-3"
             style={{ fontFamily: "Playfair Display, serif" }}
           >
-            <span style={{ color: "#F0ECE3" }}>Parent</span>{" "}
+            <span style={{ color: "#e8eaf0" }}>Parent</span>{" "}
             <span className="gold-gradient">FAQ</span>
           </h2>
-          <p style={{ color: "rgba(240,236,227,0.6)" }} className="text-base">
+          <p style={{ color: "rgba(200,210,230,0.6)" }} className="text-base">
             Everything you need to know before enrolling your child.
           </p>
         </motion.div>
@@ -114,20 +115,20 @@ export function FAQSection() {
                 value={faq.id}
                 className="rounded-xl px-5 overflow-hidden"
                 style={{
-                  background: "rgba(255,255,255,0.03)",
-                  border: "1px solid rgba(200,162,90,0.18)",
+                  background: "rgba(255,255,255,0.025)",
+                  border: `1px solid ${SILVER}0.15)`,
                 }}
                 data-ocid={`faq.item.${i + 1}`}
               >
                 <AccordionTrigger
                   className="text-left py-5 text-base font-semibold hover:no-underline"
-                  style={{ color: "#F0ECE3" }}
+                  style={{ color: "#e8eaf0" }}
                 >
                   {faq.q}
                 </AccordionTrigger>
                 <AccordionContent
                   className="pb-5 text-sm leading-relaxed"
-                  style={{ color: "rgba(240,236,227,0.65)" }}
+                  style={{ color: "rgba(200,210,230,0.65)" }}
                 >
                   {faq.a}
                 </AccordionContent>
@@ -142,11 +143,11 @@ export function FAQSection() {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="text-center mt-10"
         >
-          <p style={{ color: "rgba(240,236,227,0.5)" }} className="text-sm">
+          <p style={{ color: "rgba(200,210,230,0.5)" }} className="text-sm">
             Still have questions?{" "}
             <a
               href="#contact"
-              style={{ color: "#E8C97A" }}
+              style={{ color: "#b0c4de" }}
               className="underline underline-offset-2 hover:opacity-80 transition-opacity"
             >
               Contact us directly

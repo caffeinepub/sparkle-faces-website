@@ -8,332 +8,249 @@ function createStarShape() {
   const innerRadius = 0.2;
   const spikes = 5;
   for (let i = 0; i < spikes * 2; i++) {
-    const radius = i % 2 === 0 ? outerRadius : innerRadius;
     const angle = (i * Math.PI) / spikes - Math.PI / 2;
-    if (i === 0)
-      shape.moveTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
-    else shape.lineTo(Math.cos(angle) * radius, Math.sin(angle) * radius);
+    const r = i % 2 === 0 ? outerRadius : innerRadius;
+    const x = Math.cos(angle) * r;
+    const y = Math.sin(angle) * r;
+    if (i === 0) shape.moveTo(x, y);
+    else shape.lineTo(x, y);
   }
   shape.closePath();
   return shape;
 }
 
-function Star({
-  position,
-  scale,
-  speed,
-}: { position: [number, number, number]; scale: number; speed: number }) {
-  const meshRef = useRef<THREE.Mesh>(null);
+function FloatingStars({ count = 80 }: { count?: number }) {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
   const geometry = useMemo(() => {
     const shape = createStarShape();
-    return new THREE.ShapeGeometry(shape);
+    return new THREE.ExtrudeGeometry(shape, {
+      depth: 0.05,
+      bevelEnabled: false,
+    });
   }, []);
+
+  const stars = useMemo(() => {
+    return Array.from({ length: count }, () => ({
+      position: new THREE.Vector3(
+        (Math.random() - 0.5) * 30,
+        (Math.random() - 0.5) * 20,
+        (Math.random() - 0.5) * 10 - 5,
+      ),
+      rotation: Math.random() * Math.PI * 2,
+      speed: 0.001 + Math.random() * 0.003,
+      scale: 0.05 + Math.random() * 0.18,
+      drift: (Math.random() - 0.5) * 0.002,
+    }));
+  }, [count]);
+
+  const dummy = useMemo(() => new THREE.Object3D(), []);
 
   useFrame((state) => {
     if (!meshRef.current) return;
-    meshRef.current.rotation.z += speed * 0.01;
-    meshRef.current.position.y =
-      position[1] + Math.sin(state.clock.elapsedTime * 0.5 + position[0]) * 0.3;
+    const t = state.clock.elapsedTime;
+    stars.forEach((star, i) => {
+      star.rotation += star.speed;
+      star.position.y += star.drift;
+      if (star.position.y > 10) star.position.y = -10;
+      if (star.position.y < -10) star.position.y = 10;
+
+      dummy.position.copy(star.position);
+      dummy.rotation.z = star.rotation;
+      dummy.position.y += Math.sin(t * 0.5 + i) * 0.01;
+      const s = star.scale * (1 + Math.sin(t * 0.8 + i * 0.3) * 0.1);
+      dummy.scale.set(s, s, s);
+      dummy.updateMatrix();
+      meshRef.current!.setMatrixAt(i, dummy.matrix);
+    });
+    meshRef.current.instanceMatrix.needsUpdate = true;
   });
 
   return (
-    <mesh ref={meshRef} position={position} scale={scale} geometry={geometry}>
+    <instancedMesh ref={meshRef} args={[geometry, undefined, count]}>
       <meshStandardMaterial
-        color="#C8A25A"
-        emissive="#C8A25A"
-        emissiveIntensity={0.3}
+        color={0xc0c8e0}
+        emissive={0x8090b0}
+        emissiveIntensity={0.6}
+        metalness={0.7}
+        roughness={0.3}
+      />
+    </instancedMesh>
+  );
+}
+
+function FloatingParticles({ count = 120 }: { count?: number }) {
+  const points = useMemo(() => {
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      positions[i * 3] = (Math.random() - 0.5) * 35;
+      positions[i * 3 + 1] = (Math.random() - 0.5) * 25;
+      positions[i * 3 + 2] = (Math.random() - 0.5) * 15 - 5;
+    }
+    return positions;
+  }, [count]);
+
+  const geo = useMemo(() => {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.BufferAttribute(points, 3));
+    return g;
+  }, [points]);
+
+  const mat = useMemo(
+    () =>
+      new THREE.PointsMaterial({
+        color: 0xe8eeff,
+        size: 0.04,
+        transparent: true,
+        opacity: 0.5,
+      }),
+    [],
+  );
+
+  const ref = useRef<THREE.Points>(null);
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.y = state.clock.elapsedTime * 0.02;
+    }
+  });
+
+  return <points ref={ref} geometry={geo} material={mat} />;
+}
+
+export function HeroStarScene() {
+  return (
+    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 0 }}>
+      <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
+        <ambientLight intensity={0.3} />
+        <pointLight position={[5, 5, 5]} intensity={1.5} color={0xb0c4de} />
+        <pointLight position={[-5, -5, 3]} intensity={0.8} color={0x8090c0} />
+        <FloatingStars count={100} />
+        <FloatingParticles count={180} />
+      </Canvas>
+    </div>
+  );
+}
+
+function OrbCore() {
+  const ref = useRef<THREE.Mesh>(null);
+  useFrame((state) => {
+    if (ref.current) {
+      ref.current.rotation.x = state.clock.elapsedTime * 0.3;
+      ref.current.rotation.y = state.clock.elapsedTime * 0.5;
+    }
+  });
+  return (
+    <mesh ref={ref}>
+      <icosahedronGeometry args={[1.2, 1]} />
+      <meshStandardMaterial
+        color={0x7090c0}
+        emissive={0x3060a0}
+        emissiveIntensity={0.5}
+        wireframe
         transparent
-        opacity={0.7}
+        opacity={0.6}
       />
     </mesh>
   );
 }
 
-function Particles({ count = 80 }: { count?: number }) {
-  const positions = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 20;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 5;
-    }
-    return pos;
-  }, [count]);
-
-  const pointsRef = useRef<THREE.Points>(null);
-  useFrame((state) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.03;
-    }
-  });
-
+export function StatsOrbScene() {
   return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
-      <pointsMaterial color="#E8C97A" size={0.05} transparent opacity={0.6} />
-    </points>
-  );
-}
-
-const stars = [
-  {
-    id: "s1",
-    position: [-6, 2, -2] as [number, number, number],
-    scale: 0.6,
-    speed: 0.5,
-  },
-  {
-    id: "s2",
-    position: [6, -1, -3] as [number, number, number],
-    scale: 0.8,
-    speed: -0.3,
-  },
-  {
-    id: "s3",
-    position: [-3, -2, -1] as [number, number, number],
-    scale: 0.4,
-    speed: 0.7,
-  },
-  {
-    id: "s4",
-    position: [4, 3, -2] as [number, number, number],
-    scale: 0.5,
-    speed: -0.6,
-  },
-  {
-    id: "s5",
-    position: [0, -3, -2] as [number, number, number],
-    scale: 0.7,
-    speed: 0.4,
-  },
-  {
-    id: "s6",
-    position: [-7, 0, -3] as [number, number, number],
-    scale: 0.35,
-    speed: -0.8,
-  },
-  {
-    id: "s7",
-    position: [7, 1, -1] as [number, number, number],
-    scale: 0.45,
-    speed: 0.6,
-  },
-  {
-    id: "s8",
-    position: [2, 4, -2] as [number, number, number],
-    scale: 0.55,
-    speed: -0.4,
-  },
-  // 6 additional stars
-  {
-    id: "s9",
-    position: [-5, 3, -4] as [number, number, number],
-    scale: 0.5,
-    speed: 0.35,
-  },
-  {
-    id: "s10",
-    position: [5, -3, -4] as [number, number, number],
-    scale: 0.4,
-    speed: -0.55,
-  },
-  {
-    id: "s11",
-    position: [-1, 4, -3] as [number, number, number],
-    scale: 0.65,
-    speed: 0.9,
-  },
-  {
-    id: "s12",
-    position: [3, -4, -2] as [number, number, number],
-    scale: 0.3,
-    speed: -0.7,
-  },
-  {
-    id: "s13",
-    position: [-4, -3, -2] as [number, number, number],
-    scale: 0.55,
-    speed: 0.45,
-  },
-  {
-    id: "s14",
-    position: [8, 3, -5] as [number, number, number],
-    scale: 0.38,
-    speed: -0.5,
-  },
-];
-
-export function HeroStarScene() {
-  return (
-    <Canvas
-      camera={{ position: [0, 0, 5], fov: 75 }}
-      style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-      dpr={[1, 1.5]}
+    <div
+      className="absolute inset-0 pointer-events-none overflow-hidden"
+      style={{ zIndex: 0 }}
     >
-      <ambientLight intensity={0.4} />
-      <pointLight position={[5, 5, 5]} color="#C8A25A" intensity={2} />
-      <pointLight position={[-5, -5, 5]} color="#E8C97A" intensity={1} />
-      {stars.map((s) => (
-        <Star
-          key={s.id}
-          position={s.position}
-          scale={s.scale}
-          speed={s.speed}
-        />
-      ))}
-      <Particles count={160} />
-    </Canvas>
+      <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+        <ambientLight intensity={0.2} />
+        <pointLight position={[3, 3, 3]} intensity={1.2} color={0xb0c4de} />
+        <OrbCore />
+        <FloatingParticles count={80} />
+      </Canvas>
+    </div>
   );
 }
 
-function SmallParticles() {
-  const count = 50;
-  const positions = useMemo(() => {
-    const pos = new Float32Array(count * 3);
-    for (let i = 0; i < count; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 16;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 8;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 4;
-    }
-    return pos;
+function SmallStars({ count = 30 }: { count?: number }) {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const geometry = useMemo(() => {
+    const shape = createStarShape();
+    return new THREE.ExtrudeGeometry(shape, {
+      depth: 0.04,
+      bevelEnabled: false,
+    });
   }, []);
 
-  const pointsRef = useRef<THREE.Points>(null);
-  useFrame((state) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y = state.clock.elapsedTime * 0.02;
-      pointsRef.current.rotation.x = state.clock.elapsedTime * 0.01;
-    }
+  const stars = useMemo(() => {
+    return Array.from({ length: count }, () => ({
+      position: new THREE.Vector3(
+        (Math.random() - 0.5) * 20,
+        (Math.random() - 0.5) * 15,
+        (Math.random() - 0.5) * 5 - 3,
+      ),
+      rotation: Math.random() * Math.PI * 2,
+      speed: 0.002 + Math.random() * 0.005,
+      scale: 0.04 + Math.random() * 0.1,
+    }));
+  }, [count]);
+
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+
+  useFrame(() => {
+    if (!meshRef.current) return;
+    stars.forEach((star, i) => {
+      star.rotation += star.speed;
+      dummy.position.copy(star.position);
+      dummy.rotation.z = star.rotation;
+      dummy.scale.setScalar(star.scale);
+      dummy.updateMatrix();
+      meshRef.current!.setMatrixAt(i, dummy.matrix);
+    });
+    meshRef.current.instanceMatrix.needsUpdate = true;
   });
 
   return (
-    <points ref={pointsRef}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
-      <pointsMaterial color="#E8C97A" size={0.06} transparent opacity={0.7} />
-    </points>
+    <instancedMesh ref={meshRef} args={[geometry, undefined, count]}>
+      <meshStandardMaterial
+        color={0xd0d8f0}
+        emissive={0x8090c0}
+        emissiveIntensity={0.5}
+        metalness={0.6}
+        roughness={0.4}
+      />
+    </instancedMesh>
   );
 }
 
 export function SectionSparkles() {
   return (
-    <Canvas
-      camera={{ position: [0, 0, 5], fov: 75 }}
-      style={{
-        position: "absolute",
-        inset: 0,
-        pointerEvents: "none",
-        opacity: 0.4,
-      }}
-      dpr={[1, 1.5]}
+    <div
+      className="absolute inset-0 pointer-events-none overflow-hidden"
+      style={{ zIndex: 0, opacity: 0.6 }}
     >
-      <ambientLight intensity={0.2} />
-      <SmallParticles />
-    </Canvas>
-  );
-}
-
-function RotatingStar() {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const geometry = useMemo(
-    () => new THREE.ShapeGeometry(createStarShape()),
-    [],
-  );
-  useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.z = state.clock.elapsedTime * 0.8;
-      meshRef.current.rotation.x =
-        Math.sin(state.clock.elapsedTime * 0.4) * 0.3;
-    }
-  });
-  return (
-    <mesh ref={meshRef} geometry={geometry}>
-      <meshStandardMaterial
-        color="#C8A25A"
-        emissive="#C8A25A"
-        emissiveIntensity={0.5}
-        metalness={0.8}
-        roughness={0.2}
-      />
-    </mesh>
+      <Canvas camera={{ position: [0, 0, 8], fov: 70 }}>
+        <ambientLight intensity={0.15} />
+        <pointLight position={[4, 4, 4]} intensity={0.8} color={0xb0c4de} />
+        <SmallStars count={40} />
+        <FloatingParticles count={60} />
+      </Canvas>
+    </div>
   );
 }
 
 export function NavStar() {
   return (
-    <Canvas
-      camera={{ position: [0, 0, 2], fov: 60 }}
-      style={{
-        width: 32,
-        height: 32,
-        pointerEvents: "none",
-        display: "inline-block",
-      }}
-      dpr={[1, 2]}
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
     >
-      <ambientLight intensity={0.5} />
-      <pointLight position={[2, 2, 2]} color="#C8A25A" intensity={3} />
-      <RotatingStar />
-    </Canvas>
-  );
-}
-
-function GlowOrb({
-  position,
-  color,
-}: { position: [number, number, number]; color: string }) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  useFrame((state) => {
-    if (meshRef.current) {
-      const t = state.clock.elapsedTime;
-      meshRef.current.position.y =
-        position[1] + Math.sin(t * 0.5 + position[0]) * 0.5;
-      meshRef.current.scale.setScalar(
-        1 + Math.sin(t * 0.8 + position[0]) * 0.1,
-      );
-    }
-  });
-  return (
-    <mesh ref={meshRef} position={position}>
-      <sphereGeometry args={[0.6, 16, 16]} />
-      <meshStandardMaterial
-        color={color}
-        emissive={color}
-        emissiveIntensity={0.6}
-        transparent
-        opacity={0.4}
+      <polygon
+        points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
+        fill="rgba(160,190,230,0.8)"
+        stroke="rgba(160,190,230,0.4)"
+        strokeWidth="0.5"
       />
-    </mesh>
-  );
-}
-
-const orbPositions: Array<{
-  id: string;
-  pos: [number, number, number];
-  color: string;
-}> = [
-  { id: "o1", pos: [-6, 0, -3], color: "#C8A25A" },
-  { id: "o2", pos: [0, 0, -4], color: "#E8C97A" },
-  { id: "o3", pos: [6, 0, -3], color: "#C8A25A" },
-  { id: "o4", pos: [-3, 1, -5], color: "#A07840" },
-  { id: "o5", pos: [3, -1, -5], color: "#E8C97A" },
-];
-
-export function StatsOrbScene() {
-  return (
-    <Canvas
-      camera={{ position: [0, 0, 6], fov: 75 }}
-      style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-      dpr={[1, 1.5]}
-    >
-      <ambientLight intensity={0.2} />
-      <pointLight position={[0, 0, 5]} color="#C8A25A" intensity={2} />
-      {orbPositions.map((o) => (
-        <GlowOrb key={o.id} position={o.pos} color={o.color} />
-      ))}
-    </Canvas>
+    </svg>
   );
 }

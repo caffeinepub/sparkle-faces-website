@@ -40,6 +40,8 @@ const KIDS = [
   },
 ];
 
+const SILVER = "rgba(160,190,230,";
+
 export function KidsGallerySection() {
   const { ref, inView } = useInView();
 
@@ -47,7 +49,7 @@ export function KidsGallerySection() {
     <section
       ref={ref}
       className="py-24"
-      style={{ backgroundColor: "#0B0D10" }}
+      style={{ backgroundColor: "#060b18" }}
       id="stars"
     >
       <div className="container mx-auto px-4">
@@ -60,7 +62,7 @@ export function KidsGallerySection() {
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3">
             Our <span className="gold-gradient">Stars in Action</span>
           </h2>
-          <p className="text-white/50 text-lg">
+          <p style={{ color: "rgba(200,210,230,0.5)" }} className="text-lg">
             Real kids. Real brands. Real results.
           </p>
         </motion.div>
@@ -70,7 +72,7 @@ export function KidsGallerySection() {
             <motion.div
               key={kid.name}
               className="glass-card rounded-2xl overflow-hidden group"
-              style={{ border: "1px solid rgba(200,162,90,0.2)" }}
+              style={{ border: `1px solid ${SILVER}0.18)` }}
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
@@ -89,16 +91,16 @@ export function KidsGallerySection() {
                   className="absolute inset-0"
                   style={{
                     background:
-                      "linear-gradient(to top, rgba(11,13,16,0.85) 0%, transparent 50%)",
+                      "linear-gradient(to top, rgba(6,11,24,0.85) 0%, transparent 50%)",
                   }}
                 />
                 <div className="absolute top-3 right-3">
                   <span
                     className="text-xs font-bold px-3 py-1 rounded-full"
                     style={{
-                      background: "rgba(200,162,90,0.2)",
-                      border: "1px solid rgba(200,162,90,0.5)",
-                      color: "#E8C97A",
+                      background: `${SILVER}0.15)`,
+                      border: `1px solid ${SILVER}0.4)`,
+                      color: "#b0c4de",
                     }}
                   >
                     ✦ {kid.brand}
@@ -107,7 +109,10 @@ export function KidsGallerySection() {
               </div>
               <div className="p-4">
                 <p className="text-white font-semibold">{kid.name}</p>
-                <p className="text-white/50 text-sm mt-0.5">
+                <p
+                  style={{ color: "rgba(200,210,230,0.5)" }}
+                  className="text-sm mt-0.5"
+                >
                   Shot for {kid.brand}
                 </p>
               </div>

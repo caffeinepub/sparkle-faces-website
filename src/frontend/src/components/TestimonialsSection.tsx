@@ -68,7 +68,7 @@ const testimonials = [
   {
     id: "t7",
     quote:
-      "Transparent pricing, professional team, and a stunning portfolio for our little one. Sparkle Faces delivered beyond our expectations!",
+      "Professional team, stunning portfolio for our little one. Sparkle Faces delivered beyond our expectations!",
     name: "Vikram J.",
     city: "Pune",
     initials: "VJ",
@@ -76,6 +76,8 @@ const testimonials = [
       "/assets/uploads/img_20260325_194724_128-019d3b51-1e4a-7754-8a77-251a28e6264a-5.jpg",
   },
 ];
+
+const SILVER = "rgba(160,190,230,";
 
 export function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
@@ -90,7 +92,7 @@ export function TestimonialsSection() {
   return (
     <section
       className="py-24 relative overflow-hidden"
-      style={{ background: "#0E1015" }}
+      style={{ background: "#0a0f1e" }}
       ref={ref}
     >
       <SectionSparkles />
@@ -99,7 +101,12 @@ export function TestimonialsSection() {
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase text-gold border border-gold/30 bg-gold/10 mb-4"
+            className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase mb-4"
+            style={{
+              color: "#b0c4de",
+              border: `1px solid ${SILVER}0.3)`,
+              background: `${SILVER}0.08)`,
+            }}
           >
             Parent Stories
           </motion.span>
@@ -122,14 +129,25 @@ export function TestimonialsSection() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
               className="glass-card rounded-3xl p-10 text-center relative"
+              style={{ border: `1px solid ${SILVER}0.15)` }}
               data-ocid="testimonials.card"
             >
-              <Quote size={48} className="text-gold/20 mx-auto mb-6" />
-              <p className="text-white/80 text-xl leading-relaxed font-heading italic mb-8">
-                "{t.quote}"
+              <Quote
+                size={48}
+                className="mx-auto mb-6"
+                style={{ color: `${SILVER}0.2)` }}
+              />
+              <p
+                className="text-xl leading-relaxed font-heading italic mb-8"
+                style={{ color: "rgba(220,228,245,0.8)" }}
+              >
+                &ldquo;{t.quote}&rdquo;
               </p>
               <div className="flex items-center justify-center gap-4">
-                <div className="w-14 h-14 rounded-full border-2 border-gold/40 overflow-hidden flex-shrink-0">
+                <div
+                  className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0"
+                  style={{ border: `2px solid ${SILVER}0.35)` }}
+                >
                   <img
                     src={t.photo}
                     alt={t.name}
@@ -139,15 +157,20 @@ export function TestimonialsSection() {
                       target.style.display = "none";
                       const parent = target.parentElement;
                       if (parent) {
-                        parent.style.background = "rgba(212,175,55,0.2)";
-                        parent.innerHTML = `<span style="color:#D4AF37;font-weight:bold;font-size:14px;display:flex;align-items:center;justify-content:center;height:100%;">${t.initials}</span>`;
+                        parent.style.background = "rgba(100,140,200,0.2)";
+                        parent.innerHTML = `<span style="color:#b0c4de;font-weight:bold;font-size:14px;display:flex;align-items:center;justify-content:center;height:100%;">${t.initials}</span>`;
                       }
                     }}
                   />
                 </div>
                 <div className="text-left">
                   <p className="text-white font-semibold">{t.name}</p>
-                  <p className="text-white/50 text-sm">{t.city}</p>
+                  <p
+                    style={{ color: "rgba(200,210,230,0.5)" }}
+                    className="text-sm"
+                  >
+                    {t.city}
+                  </p>
                 </div>
               </div>
             </motion.div>
@@ -157,20 +180,26 @@ export function TestimonialsSection() {
             <button
               type="button"
               onClick={prev}
-              className="w-12 h-12 rounded-full glass-card border border-gold/20 flex items-center justify-center text-gold/70 hover:text-gold hover:border-gold/50 transition-all"
+              className="w-12 h-12 rounded-full glass-card flex items-center justify-center transition-all"
+              style={{
+                border: `1px solid ${SILVER}0.2)`,
+                color: `${SILVER}0.7)`,
+              }}
               data-ocid="testimonials.pagination_prev"
             >
               <ChevronLeft size={20} />
             </button>
             <div className="flex gap-2">
-              {testimonials.map((t, i) => (
+              {testimonials.map((item, i) => (
                 <button
                   type="button"
-                  key={t.id}
+                  key={item.id}
                   onClick={() => setCurrent(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    i === current ? "bg-gold w-6" : "bg-gold/30"
-                  }`}
+                  className="h-2 rounded-full transition-all"
+                  style={{
+                    width: i === current ? "24px" : "8px",
+                    background: i === current ? "#b0c4de" : `${SILVER}0.3)`,
+                  }}
                   data-ocid={`testimonials.item.${i + 1}`}
                 />
               ))}
@@ -178,7 +207,11 @@ export function TestimonialsSection() {
             <button
               type="button"
               onClick={next}
-              className="w-12 h-12 rounded-full glass-card border border-gold/20 flex items-center justify-center text-gold/70 hover:text-gold hover:border-gold/50 transition-all"
+              className="w-12 h-12 rounded-full glass-card flex items-center justify-center transition-all"
+              style={{
+                border: `1px solid ${SILVER}0.2)`,
+                color: `${SILVER}0.7)`,
+              }}
               data-ocid="testimonials.pagination_next"
             >
               <ChevronRight size={20} />

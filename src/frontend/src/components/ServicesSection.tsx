@@ -57,6 +57,8 @@ const packageFeatures = [
   { label: "5–7 Star Celebrity Studio Experience" },
 ];
 
+const SILVER = "rgba(160,190,230,";
+
 export function ServicesSection() {
   const { ref, inView } = useInView();
 
@@ -64,7 +66,7 @@ export function ServicesSection() {
     <section
       id="services"
       className="py-24 relative overflow-hidden"
-      style={{ background: "#0E1015" }}
+      style={{ background: "#0a0f1e" }}
       ref={ref}
     >
       <SectionSparkles />
@@ -74,7 +76,12 @@ export function ServicesSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase text-gold border border-gold/30 bg-gold/10 mb-4"
+            className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase mb-4"
+            style={{
+              color: "#b0c4de",
+              border: `1px solid ${SILVER}0.3)`,
+              background: `${SILVER}0.08)`,
+            }}
           >
             What We Offer
           </motion.span>
@@ -95,16 +102,26 @@ export function ServicesSection() {
               initial={{ opacity: 0, y: 40 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="glass-card rounded-2xl p-8 group hover:border-gold/40 transition-all duration-300 hover:shadow-gold"
+              className="glass-card rounded-2xl p-8 group transition-all duration-300"
+              style={{ border: `1px solid ${SILVER}0.12)` }}
               data-ocid={`services.item.${i + 1}`}
             >
-              <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 bg-gold/10 border border-gold/20 group-hover:bg-gold/20 transition-colors">
-                <service.icon size={24} className="text-gold" />
+              <div
+                className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-colors"
+                style={{
+                  background: `${SILVER}0.1)`,
+                  border: `1px solid ${SILVER}0.2)`,
+                }}
+              >
+                <service.icon size={24} style={{ color: "#b0c4de" }} />
               </div>
               <h3 className="font-heading text-xl font-semibold text-white mb-3">
                 {service.title}
               </h3>
-              <p className="text-white/55 leading-relaxed">
+              <p
+                style={{ color: "rgba(200,210,230,0.55)" }}
+                className="leading-relaxed"
+              >
                 {service.description}
               </p>
             </motion.div>
@@ -119,23 +136,53 @@ export function ServicesSection() {
           className="mt-20 relative"
           data-ocid="packages.section"
         >
-          {/* Gold separator */}
+          {/* Silver separator */}
           <div className="flex items-center gap-4 mb-12">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent to-gold/40" />
-            <div className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/30 bg-gold/10">
-              <Sparkles size={14} className="text-gold" />
-              <span className="text-gold text-xs font-semibold tracking-widest uppercase">
+            <div
+              className="flex-1 h-px"
+              style={{
+                background: `linear-gradient(to right, transparent, ${SILVER}0.35))`,
+              }}
+            />
+            <div
+              className="flex items-center gap-2 px-4 py-1.5 rounded-full"
+              style={{
+                border: `1px solid ${SILVER}0.3)`,
+                background: `${SILVER}0.08)`,
+              }}
+            >
+              <Sparkles size={14} style={{ color: "#b0c4de" }} />
+              <span
+                className="text-xs font-semibold tracking-widest uppercase"
+                style={{ color: "#b0c4de" }}
+              >
                 Our Packages
               </span>
-              <Sparkles size={14} className="text-gold" />
+              <Sparkles size={14} style={{ color: "#b0c4de" }} />
             </div>
-            <div className="flex-1 h-px bg-gradient-to-l from-transparent to-gold/40" />
+            <div
+              className="flex-1 h-px"
+              style={{
+                background: `linear-gradient(to left, transparent, ${SILVER}0.35))`,
+              }}
+            />
           </div>
 
-          <div className="rounded-2xl border border-gold/20 bg-white/[0.03] backdrop-blur-sm p-8 md:p-12 relative overflow-hidden">
-            {/* Subtle corner glow */}
-            <div className="absolute top-0 left-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
+          <div
+            className="rounded-2xl backdrop-blur-sm p-8 md:p-12 relative overflow-hidden"
+            style={{
+              border: `1px solid ${SILVER}0.15)`,
+              background: "rgba(255,255,255,0.02)",
+            }}
+          >
+            <div
+              className="absolute top-0 left-0 w-64 h-64 rounded-full blur-3xl pointer-events-none"
+              style={{ background: `${SILVER}0.04)` }}
+            />
+            <div
+              className="absolute bottom-0 right-0 w-64 h-64 rounded-full blur-3xl pointer-events-none"
+              style={{ background: `${SILVER}0.04)` }}
+            />
 
             <div className="relative z-10">
               <div className="text-center mb-10">
@@ -152,7 +199,8 @@ export function ServicesSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.6 }}
-                  className="text-white/60 text-lg max-w-2xl mx-auto leading-relaxed"
+                  style={{ color: "rgba(200,210,230,0.6)" }}
+                  className="text-lg max-w-2xl mx-auto leading-relaxed"
                 >
                   We offer customized photoshoot and casting packages designed
                   for every aspiring talent.
@@ -167,45 +215,80 @@ export function ServicesSection() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={inView ? { opacity: 1, scale: 1 } : {}}
                     transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
-                    className="flex items-start gap-3 p-4 rounded-xl border border-gold/15 bg-gold/5 hover:border-gold/35 hover:bg-gold/10 transition-all duration-300 group"
+                    className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 group"
+                    style={{
+                      border: `1px solid ${SILVER}0.15)`,
+                      background: `${SILVER}0.05)`,
+                    }}
                     data-ocid={`packages.item.${i + 1}`}
                   >
-                    <div className="mt-0.5 shrink-0 w-7 h-7 rounded-full flex items-center justify-center bg-gold/15 border border-gold/25 group-hover:bg-gold/25 transition-colors">
-                      <Sparkles size={13} className="text-gold" />
+                    <div
+                      className="mt-0.5 shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors"
+                      style={{
+                        background: `${SILVER}0.12)`,
+                        border: `1px solid ${SILVER}0.2)`,
+                      }}
+                    >
+                      <Sparkles size={13} style={{ color: "#b0c4de" }} />
                     </div>
-                    <span className="text-white/85 text-sm font-medium leading-snug">
+                    <span
+                      className="text-sm font-medium leading-snug"
+                      style={{ color: "rgba(220,230,245,0.85)" }}
+                    >
                       {feature.label}
                     </span>
                   </motion.div>
                 ))}
               </div>
 
-              {/* Pricing note */}
+              {/* Info note */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 1.0 }}
-                className="flex flex-col md:flex-row items-center gap-6 p-6 rounded-xl border border-gold/25 bg-gold/8"
+                className="flex flex-col md:flex-row items-center gap-6 p-6 rounded-xl"
+                style={{
+                  border: `1px solid ${SILVER}0.2)`,
+                  background: `${SILVER}0.06)`,
+                }}
               >
-                <div className="flex items-center justify-center w-12 h-12 shrink-0 rounded-xl bg-gold/15 border border-gold/30">
-                  <Briefcase size={22} className="text-gold" />
+                <div
+                  className="flex items-center justify-center w-12 h-12 shrink-0 rounded-xl"
+                  style={{
+                    background: `${SILVER}0.12)`,
+                    border: `1px solid ${SILVER}0.25)`,
+                  }}
+                >
+                  <Briefcase size={22} style={{ color: "#b0c4de" }} />
                 </div>
                 <div className="text-center md:text-left flex-1">
-                  <p className="text-gold font-semibold text-lg mb-1">
-                    Flexible &amp; Transparent Pricing
+                  <p
+                    className="font-semibold text-lg mb-1"
+                    style={{ color: "#b8cce4" }}
+                  >
+                    Flexible &amp; Transparent Packages
                   </p>
-                  <p className="text-white/60 text-sm">
+                  <p
+                    style={{ color: "rgba(200,210,230,0.6)" }}
+                    className="text-sm"
+                  >
                     Packages are tailored based on requirements. Connect with us
-                    to get detailed pricing &amp; availability.
+                    to get detailed availability &amp; next steps.
                   </p>
                 </div>
                 <a
                   href="#contact"
-                  className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-black bg-gold hover:bg-gold/90 transition-colors shadow-gold"
+                  className="shrink-0 inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm transition-colors"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #7a9cc0 0%, #b8cce4 100%)",
+                    color: "#060b18",
+                    boxShadow: "0 0 20px rgba(120,160,210,0.2)",
+                  }}
                   data-ocid="packages.primary_button"
                 >
                   <Star size={16} />
-                  Get Pricing Details
+                  Get Details
                 </a>
               </motion.div>
             </div>

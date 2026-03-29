@@ -27,7 +27,7 @@ export function PromoPage() {
 
       <div
         className="min-h-screen relative flex flex-col items-center justify-start py-10 px-4"
-        style={{ backgroundColor: "#0B0D10" }}
+        style={{ backgroundColor: "#060b18" }}
       >
         {/* 3D background sparkles */}
         <div className="fixed inset-0 no-print" style={{ zIndex: 0 }}>
@@ -36,7 +36,7 @@ export function PromoPage() {
           </Suspense>
         </div>
 
-        {/* Gold glow blob */}
+        {/* Silver glow blob */}
         <div
           className="fixed no-print"
           style={{
@@ -46,7 +46,7 @@ export function PromoPage() {
             width: "700px",
             height: "400px",
             background:
-              "radial-gradient(ellipse, rgba(200,162,90,0.1) 0%, transparent 70%)",
+              "radial-gradient(ellipse, rgba(100,140,200,0.08) 0%, transparent 70%)",
             pointerEvents: "none",
             zIndex: 0,
           }}
@@ -60,7 +60,7 @@ export function PromoPage() {
           <a
             href="/"
             className="flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70"
-            style={{ color: "#E8C97A" }}
+            style={{ color: "#b0c4de" }}
             data-ocid="promo.link"
           >
             ← Back to Site
@@ -70,9 +70,9 @@ export function PromoPage() {
             onClick={handlePrint}
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:opacity-90"
             style={{
-              background: "linear-gradient(135deg, #C8A25A, #E8C97A)",
-              color: "#0B0D10",
-              boxShadow: "0 4px 20px rgba(200,162,90,0.35)",
+              background: "linear-gradient(135deg, #7a9cc0, #b8cce4)",
+              color: "#060b18",
+              boxShadow: "0 4px 20px rgba(100,140,200,0.25)",
             }}
             data-ocid="promo.primary_button"
           >
@@ -84,35 +84,35 @@ export function PromoPage() {
         <div
           className="promo-letter relative w-full max-w-2xl rounded-2xl p-10 md:p-14"
           style={{
-            background: "rgba(255,255,255,0.03)",
+            background: "rgba(255,255,255,0.025)",
             backdropFilter: "blur(16px)",
-            border: "1px solid rgba(200,162,90,0.3)",
+            border: "1px solid rgba(160,190,230,0.2)",
             boxShadow:
-              "0 0 60px rgba(200,162,90,0.1), inset 0 0 40px rgba(200,162,90,0.02)",
+              "0 0 60px rgba(100,140,200,0.08), inset 0 0 40px rgba(100,140,200,0.02)",
             zIndex: 5,
           }}
         >
           <span
             className="absolute top-5 left-5 text-2xl no-print"
-            style={{ color: "#E8C97A", opacity: 0.7 }}
+            style={{ color: "#b0c4de", opacity: 0.6 }}
           >
             ✦
           </span>
           <span
             className="absolute top-5 right-5 text-2xl no-print"
-            style={{ color: "#E8C97A", opacity: 0.7 }}
+            style={{ color: "#b0c4de", opacity: 0.6 }}
           >
             ✦
           </span>
           <span
             className="absolute bottom-5 left-5 text-xl no-print"
-            style={{ color: "#C8A25A", opacity: 0.5 }}
+            style={{ color: "#8090b0", opacity: 0.4 }}
           >
             ✦
           </span>
           <span
             className="absolute bottom-5 right-5 text-xl no-print"
-            style={{ color: "#C8A25A", opacity: 0.5 }}
+            style={{ color: "#8090b0", opacity: 0.4 }}
           >
             ✦
           </span>
@@ -122,7 +122,7 @@ export function PromoPage() {
               className="text-2xl font-bold mb-1"
               style={{
                 fontFamily: "Playfair Display, serif",
-                background: "linear-gradient(135deg, #C8A25A, #E8C97A)",
+                background: "linear-gradient(135deg, #8ba8d0, #c8d8f0)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -133,7 +133,7 @@ export function PromoPage() {
               className="letter-divider"
               style={{
                 height: "1px",
-                background: "rgba(200,162,90,0.25)",
+                background: "rgba(160,190,230,0.2)",
                 margin: "16px 0",
               }}
             />
@@ -141,7 +141,7 @@ export function PromoPage() {
 
           <p
             className="text-xl font-semibold mb-6"
-            style={{ color: "#F0ECE3", fontFamily: "Playfair Display, serif" }}
+            style={{ color: "#e8eaf0", fontFamily: "Playfair Display, serif" }}
           >
             Dear Parents, 👋
           </p>
@@ -149,39 +149,39 @@ export function PromoPage() {
           <div
             className="rounded-xl p-5 mb-8"
             style={{
-              background: "rgba(200,162,90,0.08)",
-              border: "1px solid rgba(200,162,90,0.25)",
+              background: "rgba(100,140,200,0.07)",
+              border: "1px solid rgba(160,190,230,0.2)",
             }}
           >
-            <p className="text-lg font-bold mb-2" style={{ color: "#E8C97A" }}>
+            <p className="text-lg font-bold mb-2" style={{ color: "#b0c4de" }}>
               🌟 Big Congratulations!
             </p>
-            <p className="leading-relaxed" style={{ color: "#F0ECE3" }}>
+            <p className="leading-relaxed" style={{ color: "#e8eaf0" }}>
               Your child has been{" "}
-              <strong style={{ color: "#E8C97A" }}>
+              <strong style={{ color: "#b0c4de" }}>
                 exclusively shortlisted
               </strong>{" "}
               for a{" "}
-              <strong style={{ color: "#E8C97A" }}>
+              <strong style={{ color: "#b0c4de" }}>
                 Premium Kids Brand Shoot
               </strong>{" "}
               by Sparkle Faces.
             </p>
             <p
               className="mt-3 leading-relaxed"
-              style={{ color: "rgba(240,236,227,0.75)" }}
+              style={{ color: "rgba(200,210,230,0.75)" }}
             >
-              ✨ This is a golden opportunity to kickstart your child's journey
-              into ads, brand shoots &amp; media exposure.
+              ✨ This is a golden opportunity to kickstart your child&apos;s
+              journey into ads, brand shoots &amp; media exposure.
             </p>
           </div>
 
           <div className="mb-8">
             <p
               className="text-base font-bold mb-4"
-              style={{ color: "#E8C97A" }}
+              style={{ color: "#b0c4de" }}
             >
-              What's Included:
+              What&apos;s Included:
             </p>
             <ul className="space-y-2">
               {[
@@ -193,7 +193,7 @@ export function PromoPage() {
                 <li
                   key={item}
                   className="flex items-start gap-2 text-sm"
-                  style={{ color: "#F0ECE3" }}
+                  style={{ color: "#e8eaf0" }}
                 >
                   <span className="mt-0.5">{item.slice(0, 2)}</span>
                   <span>{item.slice(2)}</span>
@@ -207,20 +207,20 @@ export function PromoPage() {
             className="rounded-xl p-5 mb-8 text-center"
             style={{
               background:
-                "linear-gradient(135deg, rgba(200,162,90,0.15), rgba(232,201,122,0.08))",
-              border: "1px solid rgba(200,162,90,0.4)",
+                "linear-gradient(135deg, rgba(100,140,200,0.12), rgba(140,170,220,0.06))",
+              border: "1px solid rgba(160,190,230,0.3)",
             }}
           >
             <p
               className="text-base font-bold mb-1"
-              style={{ color: "#E8C97A" }}
+              style={{ color: "#b0c4de" }}
             >
               💰 Earning Potential
             </p>
             <p
               className="text-2xl font-bold"
               style={{
-                color: "#F0ECE3",
+                color: "#e8eaf0",
                 fontFamily: "Playfair Display, serif",
               }}
             >
@@ -228,38 +228,16 @@ export function PromoPage() {
             </p>
             <p
               className="text-sm mt-1"
-              style={{ color: "rgba(240,236,227,0.6)" }}
+              style={{ color: "rgba(200,210,230,0.6)" }}
             >
               From 2nd shoot onwards
-            </p>
-          </div>
-
-          <div
-            className="rounded-xl p-5 mb-8 text-center"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(200,162,90,0.12), rgba(232,201,122,0.06))",
-              border: "1px solid rgba(200,162,90,0.35)",
-            }}
-          >
-            <p
-              className="text-base font-bold mb-1"
-              style={{ color: "#E8C97A" }}
-            >
-              🔐 Confirm Your Child's Spot
-            </p>
-            <p
-              className="text-sm mt-1"
-              style={{ color: "rgba(240,236,227,0.7)" }}
-            >
-              Refundable Security Deposit — 100% returned if not selected
             </p>
           </div>
 
           <div className="mb-8">
             <p
               className="text-base font-bold mb-4"
-              style={{ color: "#E8C97A" }}
+              style={{ color: "#b0c4de" }}
             >
               🎁 Exclusive Complimentary Benefits:
             </p>
@@ -273,9 +251,9 @@ export function PromoPage() {
                 <li
                   key={item}
                   className="flex items-center gap-2 text-sm"
-                  style={{ color: "#F0ECE3" }}
+                  style={{ color: "#e8eaf0" }}
                 >
-                  <span style={{ color: "#E8C97A" }}>✔️</span>
+                  <span style={{ color: "#b0c4de" }}>✔️</span>
                   {item}
                 </li>
               ))}
@@ -285,27 +263,27 @@ export function PromoPage() {
           <div
             className="rounded-xl p-4 mb-8 text-center"
             style={{
-              background: "rgba(200,162,90,0.05)",
-              border: "1px solid rgba(200,162,90,0.2)",
+              background: "rgba(100,140,200,0.05)",
+              border: "1px solid rgba(160,190,230,0.15)",
             }}
           >
             <p
               className="font-bold text-base mb-1"
-              style={{ color: "#E8C97A" }}
+              style={{ color: "#b0c4de" }}
             >
-              🔁 100% Risk-Free
+              🔁 Zero Risk for Your Family
             </p>
-            <p className="text-sm" style={{ color: "rgba(240,236,227,0.65)" }}>
-              If your child is not selected, the full security deposit is
-              refunded.
+            <p className="text-sm" style={{ color: "rgba(200,210,230,0.65)" }}>
+              Your child&apos;s journey is in safe, experienced hands. Every
+              step is transparent and professionally managed.
             </p>
           </div>
 
           <div
             className="rounded-xl p-4 mb-8 text-center"
             style={{
-              background: "rgba(255,100,50,0.06)",
-              border: "1px solid rgba(255,100,50,0.25)",
+              background: "rgba(255,100,50,0.05)",
+              border: "1px solid rgba(255,100,50,0.2)",
             }}
           >
             <p className="font-semibold text-sm" style={{ color: "#FF9966" }}>
@@ -313,9 +291,10 @@ export function PromoPage() {
             </p>
             <p
               className="text-xs mt-1"
-              style={{ color: "rgba(240,236,227,0.5)" }}
+              style={{ color: "rgba(200,210,230,0.5)" }}
             >
-              Parents are already confirming quickly… don't miss this chance!
+              Parents are already confirming quickly… don&apos;t miss this
+              chance!
             </p>
           </div>
 
@@ -323,12 +302,12 @@ export function PromoPage() {
             <p
               className="text-lg font-bold"
               style={{
-                color: "#F0ECE3",
+                color: "#e8eaf0",
                 fontFamily: "Playfair Display, serif",
               }}
             >
-              👉 Reply <span style={{ color: "#E8C97A" }}>YES</span> now to lock
-              your child's slot
+              👉 Reply <span style={{ color: "#b0c4de" }}>YES</span> now to lock
+              your child&apos;s slot
             </p>
           </div>
 
@@ -336,30 +315,30 @@ export function PromoPage() {
             className="letter-divider"
             style={{
               height: "1px",
-              background: "rgba(200,162,90,0.2)",
+              background: "rgba(160,190,230,0.15)",
               margin: "24px 0",
             }}
           />
 
           <div>
-            <p style={{ color: "rgba(240,236,227,0.7)", fontSize: "0.9rem" }}>
+            <p style={{ color: "rgba(200,210,230,0.7)", fontSize: "0.9rem" }}>
               Warm regards,
             </p>
             <p
               className="text-lg font-bold mt-1"
               style={{
-                color: "#F0ECE3",
+                color: "#e8eaf0",
                 fontFamily: "Playfair Display, serif",
               }}
             >
               Kunal Chaudhary
             </p>
-            <p style={{ color: "#E8C97A", fontSize: "0.9rem" }}>
+            <p style={{ color: "#b0c4de", fontSize: "0.9rem" }}>
               Sparkle Faces
             </p>
             <a
               href="https://sparklefaces.in"
-              style={{ color: "rgba(200,162,90,0.7)", fontSize: "0.85rem" }}
+              style={{ color: "rgba(160,190,230,0.6)", fontSize: "0.85rem" }}
               className="hover:opacity-80 transition-opacity"
             >
               🌐 sparklefaces.in
@@ -371,11 +350,11 @@ export function PromoPage() {
           className="mt-8 text-center no-print"
           style={{ zIndex: 5, position: "relative" }}
         >
-          <p style={{ color: "rgba(240,236,227,0.3)", fontSize: "0.75rem" }}>
+          <p style={{ color: "rgba(200,210,230,0.3)", fontSize: "0.75rem" }}>
             © {new Date().getFullYear()}. Built with love using{" "}
             <a
               href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
-              style={{ color: "rgba(200,162,90,0.5)" }}
+              style={{ color: "rgba(160,190,230,0.5)" }}
               className="hover:opacity-80 transition-opacity"
             >
               caffeine.ai

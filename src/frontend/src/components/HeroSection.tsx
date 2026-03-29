@@ -14,17 +14,17 @@ export function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{
         background:
-          "linear-gradient(160deg, #0B0D10 0%, #12100E 50%, #0B0D10 100%)",
+          "linear-gradient(160deg, #060b18 0%, #0a1020 50%, #060b18 100%)",
       }}
     >
       <HeroStarScene />
 
-      {/* Ambient radial glow */}
+      {/* Ambient silver radial glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,162,90,0.06) 0%, transparent 70%)",
+            "radial-gradient(ellipse 80% 60% at 50% 50%, rgba(160,180,220,0.06) 0%, transparent 70%)",
         }}
       />
 
@@ -37,10 +37,11 @@ export function HeroSection() {
           transition={{ duration: 0.9, delay: 0.4 }}
         >
           <div
-            className="relative rounded-2xl overflow-hidden shadow-gold-lg"
+            className="relative rounded-2xl overflow-hidden"
             style={{
               transform: "rotate(-3deg)",
-              border: "2px solid rgba(200,162,90,0.3)",
+              border: "2px solid rgba(180,200,230,0.25)",
+              boxShadow: "0 0 40px rgba(140,170,220,0.15)",
             }}
           >
             <img
@@ -48,7 +49,7 @@ export function HeroSection() {
               alt="Sparkle Faces talent"
               className="w-full h-80 object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060b18]/60 to-transparent" />
           </div>
         </motion.div>
 
@@ -59,8 +60,15 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <span className="inline-block px-4 py-1 rounded-full text-xs font-semibold tracking-widest uppercase text-gold border border-gold/30 bg-gold/10 mb-6">
-              India's Trusted Kids Agency
+            <span
+              className="inline-block px-4 py-1 rounded-full text-xs font-semibold tracking-widest uppercase mb-6"
+              style={{
+                color: "#b0c4de",
+                border: "1px solid rgba(160,190,230,0.3)",
+                background: "rgba(140,170,220,0.08)",
+              }}
+            >
+              India&apos;s Trusted Kids Agency
             </span>
           </motion.div>
 
@@ -76,12 +84,13 @@ export function HeroSection() {
           </motion.h1>
 
           <motion.p
-            className="text-lg md:text-xl text-white/60 max-w-xl mx-auto mb-10 leading-relaxed"
+            className="text-lg md:text-xl max-w-xl mx-auto mb-10 leading-relaxed"
+            style={{ color: "rgba(200,210,230,0.65)" }}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.45 }}
           >
-            India's Trusted Kids Casting &amp; Talent Management Agency —
+            India&apos;s Trusted Kids Casting &amp; Talent Management Agency —
             connecting children with genuine opportunities in TV, fashion &amp;
             brand campaigns.
           </motion.p>
@@ -96,14 +105,24 @@ export function HeroSection() {
               href="https://cfpe.me/sparklefaces"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full font-semibold text-dark bg-gold hover:bg-gold-light transition-all duration-300 shadow-gold text-center"
+              className="px-8 py-4 rounded-full font-semibold text-center transition-all duration-300"
+              style={{
+                background:
+                  "linear-gradient(135deg, #8ba8d0 0%, #c8d8f0 50%, #8ba8d0 100%)",
+                color: "#060b18",
+                boxShadow: "0 0 30px rgba(140,175,220,0.3)",
+              }}
               data-ocid="hero.primary_button"
             >
               Enroll Your Child
             </a>
             <a
               href="#about"
-              className="px-8 py-4 rounded-full font-semibold text-gold border border-gold/50 hover:bg-gold/10 transition-all duration-300 text-center"
+              className="px-8 py-4 rounded-full font-semibold text-center transition-all duration-300"
+              style={{
+                color: "#b0c4de",
+                border: "1px solid rgba(160,190,230,0.4)",
+              }}
               data-ocid="hero.secondary_button"
             >
               Learn More
@@ -119,10 +138,11 @@ export function HeroSection() {
           transition={{ duration: 0.9, delay: 0.4 }}
         >
           <div
-            className="relative rounded-2xl overflow-hidden shadow-gold-lg"
+            className="relative rounded-2xl overflow-hidden"
             style={{
               transform: "rotate(3deg)",
-              border: "2px solid rgba(200,162,90,0.3)",
+              border: "2px solid rgba(180,200,230,0.25)",
+              boxShadow: "0 0 40px rgba(140,170,220,0.15)",
             }}
           >
             <img
@@ -130,14 +150,15 @@ export function HeroSection() {
               alt="Sparkle Faces talent"
               className="w-full h-80 object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-dark/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#060b18]/60 to-transparent" />
           </div>
         </motion.div>
       </div>
 
       <motion.a
         href="#about"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-gold/60 hover:text-gold transition-colors animate-bounce"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 transition-colors animate-bounce"
+        style={{ color: "rgba(160,190,230,0.6)" }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.2 }}

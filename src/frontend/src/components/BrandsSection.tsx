@@ -22,11 +22,12 @@ const stats = [
   { value: 75, suffix: "+", label: "Brand Partners" },
 ];
 
-// Pre-build the doubled list with stable unique keys
 const tickerItems = [
   ...brands.map((b) => ({ brand: b, key: `a-${b}` })),
   ...brands.map((b) => ({ brand: b, key: `b-${b}` })),
 ];
+
+const SILVER = "rgba(160,190,230,";
 
 function CountUp({
   target,
@@ -65,8 +66,8 @@ export function BrandsSection() {
     <section
       ref={ref as React.RefObject<HTMLElement>}
       id="brands"
-      style={{ backgroundColor: "#0E1015" }}
-      className="relative py-20 overflow-hidden"
+      style={{ backgroundColor: "#0a0f1e" }}
+      className="relative py-24 overflow-hidden"
     >
       <div
         style={{
@@ -76,8 +77,7 @@ export function BrandsSection() {
           transform: "translate(-50%, -50%)",
           width: "600px",
           height: "300px",
-          background:
-            "radial-gradient(ellipse, rgba(200,162,90,0.07) 0%, transparent 70%)",
+          background: `radial-gradient(ellipse, ${SILVER}0.06) 0%, transparent 70%)`,
           pointerEvents: "none",
         }}
       />
@@ -92,26 +92,26 @@ export function BrandsSection() {
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-4 text-sm font-medium"
             style={{
-              background: "rgba(200,162,90,0.12)",
-              border: "1px solid rgba(200,162,90,0.35)",
-              color: "#E8C97A",
+              background: `${SILVER}0.1)`,
+              border: `1px solid ${SILVER}0.3)`,
+              color: "#b0c4de",
             }}
           >
-            ✨ Brand Partnerships
+            ✦ Brand Partnerships
           </div>
           <h2
             className="text-3xl md:text-5xl font-bold mb-3"
             style={{ fontFamily: "Playfair Display, serif" }}
           >
             <span className="gold-gradient">Trusted By</span>{" "}
-            <span style={{ color: "#F0ECE3" }}>Leading Brands</span>
+            <span style={{ color: "#e8eaf0" }}>Leading Brands</span>
           </h2>
           <p
-            style={{ color: "rgba(240,236,227,0.6)" }}
+            style={{ color: "rgba(200,210,230,0.6)" }}
             className="text-base max-w-xl mx-auto"
           >
-            Our kids have graced campaigns for India's most iconic and global
-            fashion &amp; lifestyle brands.
+            Our kids have graced campaigns for India&apos;s most iconic and
+            global fashion &amp; lifestyle brands.
           </p>
         </motion.div>
 
@@ -129,9 +129,9 @@ export function BrandsSection() {
                 key={key}
                 className="px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap"
                 style={{
-                  background: "rgba(200,162,90,0.08)",
-                  border: "1px solid rgba(200,162,90,0.3)",
-                  color: "#E8C97A",
+                  background: `${SILVER}0.07)`,
+                  border: `1px solid ${SILVER}0.25)`,
+                  color: "#b0c4de",
                   letterSpacing: "0.04em",
                 }}
               >
@@ -150,14 +150,13 @@ export function BrandsSection() {
           <div
             className="inline-flex items-center gap-2 px-6 py-2 rounded-full text-base font-bold"
             style={{
-              background:
-                "linear-gradient(135deg, rgba(200,162,90,0.18), rgba(232,201,122,0.1))",
-              border: "1px solid rgba(200,162,90,0.5)",
-              color: "#E8C97A",
-              boxShadow: "0 0 24px rgba(200,162,90,0.15)",
+              background: `linear-gradient(135deg, ${SILVER}0.15), ${SILVER}0.08))`,
+              border: `1px solid ${SILVER}0.4)`,
+              color: "#b0c4de",
+              boxShadow: `0 0 24px ${SILVER}0.12)`,
             }}
           >
-            ⭐ 75+ Brand Partners &amp; Counting
+            ★ 75+ Brand Partners &amp; Counting
           </div>
         </motion.div>
 
@@ -169,7 +168,7 @@ export function BrandsSection() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
               className="text-center glass-card rounded-2xl py-8 px-4"
-              style={{ border: "1px solid rgba(200,162,90,0.2)" }}
+              style={{ border: `1px solid ${SILVER}0.18)` }}
             >
               <div
                 className="text-4xl md:text-5xl font-bold mb-1 gold-gradient"
@@ -182,7 +181,7 @@ export function BrandsSection() {
                 />
               </div>
               <div
-                style={{ color: "rgba(240,236,227,0.6)" }}
+                style={{ color: "rgba(200,210,230,0.6)" }}
                 className="text-sm font-medium"
               >
                 {stat.label}

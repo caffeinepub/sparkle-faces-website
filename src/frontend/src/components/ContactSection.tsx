@@ -5,6 +5,8 @@ import { toast } from "sonner";
 import { useActor } from "../hooks/useActor";
 import { useInView } from "../hooks/useInView";
 
+const SILVER = "rgba(160,190,230,";
+
 export function ContactSection() {
   const { ref, inView } = useInView();
   const { actor } = useActor();
@@ -47,14 +49,30 @@ export function ContactSection() {
     }
   };
 
+  const inputStyle = {
+    background: `${SILVER}0.04)`,
+    border: `1px solid ${SILVER}0.12)`,
+    color: "#e8eaf0",
+  };
+
   return (
-    <section id="contact" className="py-24 bg-dark" ref={ref}>
+    <section
+      id="contact"
+      className="py-24"
+      style={{ backgroundColor: "#060b18" }}
+      ref={ref}
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase text-gold border border-gold/30 bg-gold/10 mb-4"
+            className="inline-block px-3 py-1 rounded-full text-xs font-semibold tracking-widest uppercase mb-4"
+            style={{
+              color: "#b0c4de",
+              border: `1px solid ${SILVER}0.3)`,
+              background: `${SILVER}0.08)`,
+            }}
           >
             Get In Touch
           </motion.span>
@@ -77,72 +95,92 @@ export function ContactSection() {
           >
             <div>
               <h3 className="font-heading text-2xl font-semibold text-white mb-6">
-                Let's Connect
+                Let&apos;s Connect
               </h3>
-              <p className="text-white/60 leading-relaxed">
-                Whether you're a parent looking to enroll your child or a brand
-                seeking young talent, we'd love to hear from you.
+              <p
+                style={{ color: "rgba(200,210,230,0.6)" }}
+                className="leading-relaxed"
+              >
+                Whether you&apos;re a parent looking to enroll your child or a
+                brand seeking young talent, we&apos;d love to hear from you.
               </p>
             </div>
             <div className="space-y-4">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <MapPin size={18} className="text-gold" />
-                </div>
-                <div>
-                  <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
-                    Address
-                  </p>
-                  <p className="text-white/80 text-sm leading-relaxed">
-                    Office No-302, Crystal IT Park,
-                    <br />
-                    Khandwa Road, Indore, MP 452015
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0">
-                  <Phone size={18} className="text-gold" />
-                </div>
-                <div>
-                  <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
-                    Phone
-                  </p>
-                  <a
-                    href="tel:+919819209964"
-                    className="text-white/80 hover:text-gold transition-colors"
+              {[
+                {
+                  Icon: MapPin,
+                  label: "Address",
+                  content: (
+                    <p
+                      style={{ color: "rgba(220,228,245,0.8)" }}
+                      className="text-sm leading-relaxed"
+                    >
+                      Office No-302, Crystal IT Park,
+                      <br />
+                      Khandwa Road, Indore, MP 452015
+                    </p>
+                  ),
+                },
+                {
+                  Icon: Phone,
+                  label: "Phone",
+                  content: (
+                    <a
+                      href="tel:+919819209964"
+                      className="text-sm transition-colors"
+                      style={{ color: "rgba(220,228,245,0.8)" }}
+                    >
+                      +91 98192 09964
+                    </a>
+                  ),
+                },
+                {
+                  Icon: Mail,
+                  label: "Email",
+                  content: (
+                    <a
+                      href="mailto:info@sparklefaces.net"
+                      className="text-sm transition-colors"
+                      style={{ color: "rgba(220,228,245,0.8)" }}
+                    >
+                      info@sparklefaces.net
+                    </a>
+                  ),
+                },
+                {
+                  Icon: User,
+                  label: "Client Servicing",
+                  content: (
+                    <p
+                      style={{ color: "rgba(220,228,245,0.8)" }}
+                      className="text-sm"
+                    >
+                      Kunal Chaudhary
+                    </p>
+                  ),
+                },
+              ].map(({ Icon, label, content }) => (
+                <div key={label} className="flex items-start gap-4">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5"
+                    style={{
+                      background: `${SILVER}0.08)`,
+                      border: `1px solid ${SILVER}0.18)`,
+                    }}
                   >
-                    +91 9819209964
-                  </a>
+                    <Icon size={18} style={{ color: "#b0c4de" }} />
+                  </div>
+                  <div>
+                    <p
+                      style={{ color: "rgba(200,210,230,0.4)" }}
+                      className="text-xs uppercase tracking-widest mb-1"
+                    >
+                      {label}
+                    </p>
+                    {content}
+                  </div>
                 </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0">
-                  <Mail size={18} className="text-gold" />
-                </div>
-                <div>
-                  <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
-                    Email
-                  </p>
-                  <a
-                    href="mailto:info@sparklefaces.net"
-                    className="text-white/80 hover:text-gold transition-colors"
-                  >
-                    info@sparklefaces.net
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center flex-shrink-0">
-                  <User size={18} className="text-gold" />
-                </div>
-                <div>
-                  <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
-                    Client Servicing
-                  </p>
-                  <p className="text-white/80 text-sm">Kunal Chaudhary</p>
-                </div>
-              </div>
+              ))}
             </div>
           </motion.div>
 
@@ -154,13 +192,15 @@ export function ContactSection() {
             <form
               onSubmit={handleSubmit}
               className="glass-card rounded-2xl p-8 space-y-5"
+              style={{ border: `1px solid ${SILVER}0.12)` }}
               data-ocid="contact.panel"
             >
               <div className="grid sm:grid-cols-2 gap-4">
                 <div>
                   <label
                     htmlFor="contact-name"
-                    className="text-white/50 text-xs uppercase tracking-wider mb-2 block"
+                    style={{ color: "rgba(200,210,230,0.5)" }}
+                    className="text-xs uppercase tracking-wider mb-2 block"
                   >
                     Name *
                   </label>
@@ -170,14 +210,16 @@ export function ContactSection() {
                     value={form.name}
                     onChange={handleChange}
                     placeholder="Your name"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                    style={inputStyle}
+                    className="w-full px-4 py-3 rounded-xl placeholder-white/20 focus:outline-none transition-colors text-sm"
                     data-ocid="contact.input"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="contact-email"
-                    className="text-white/50 text-xs uppercase tracking-wider mb-2 block"
+                    style={{ color: "rgba(200,210,230,0.5)" }}
+                    className="text-xs uppercase tracking-wider mb-2 block"
                   >
                     Email *
                   </label>
@@ -188,7 +230,8 @@ export function ContactSection() {
                     value={form.email}
                     onChange={handleChange}
                     placeholder="Your email"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                    style={inputStyle}
+                    className="w-full px-4 py-3 rounded-xl placeholder-white/20 focus:outline-none transition-colors text-sm"
                     data-ocid="contact.input"
                   />
                 </div>
@@ -196,7 +239,8 @@ export function ContactSection() {
               <div>
                 <label
                   htmlFor="contact-phone"
-                  className="text-white/50 text-xs uppercase tracking-wider mb-2 block"
+                  style={{ color: "rgba(200,210,230,0.5)" }}
+                  className="text-xs uppercase tracking-wider mb-2 block"
                 >
                   Phone
                 </label>
@@ -206,14 +250,16 @@ export function ContactSection() {
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="Your phone number"
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-gold/50 transition-colors text-sm"
+                  style={inputStyle}
+                  className="w-full px-4 py-3 rounded-xl placeholder-white/20 focus:outline-none transition-colors text-sm"
                   data-ocid="contact.input"
                 />
               </div>
               <div>
                 <label
                   htmlFor="contact-message"
-                  className="text-white/50 text-xs uppercase tracking-wider mb-2 block"
+                  style={{ color: "rgba(200,210,230,0.5)" }}
+                  className="text-xs uppercase tracking-wider mb-2 block"
                 >
                   Message *
                 </label>
@@ -224,14 +270,21 @@ export function ContactSection() {
                   onChange={handleChange}
                   rows={4}
                   placeholder="Tell us about your child..."
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:outline-none focus:border-gold/50 transition-colors resize-none text-sm"
+                  style={inputStyle}
+                  className="w-full px-4 py-3 rounded-xl placeholder-white/20 focus:outline-none transition-colors resize-none text-sm"
                   data-ocid="contact.textarea"
                 />
               </div>
               <button
                 type="submit"
                 disabled={sending}
-                className="w-full py-4 rounded-xl font-semibold text-dark bg-gold hover:bg-gold-light disabled:opacity-60 transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-xl font-semibold disabled:opacity-60 transition-all duration-300 flex items-center justify-center gap-2"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #7a9cc0 0%, #b8cce4 100%)",
+                  color: "#060b18",
+                  boxShadow: "0 0 20px rgba(120,160,210,0.2)",
+                }}
                 data-ocid="contact.submit_button"
               >
                 {sending ? (

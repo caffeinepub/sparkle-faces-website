@@ -1,4 +1,4 @@
-import { SiInstagram, SiWhatsapp } from "react-icons/si";
+import { SiInstagram } from "react-icons/si";
 
 const footerLinks = [
   { label: "Home", href: "#home" },
@@ -14,14 +14,19 @@ const socials = [
     href: "https://www.instagram.com/sparklefaces.in?igsh=MWYxaDQ2MXVmNTF2eg==",
     label: "Instagram",
   },
-  { Icon: SiWhatsapp, href: "https://wa.me/919819209964", label: "WhatsApp" },
 ];
+
+const SILVER = "rgba(160,190,230,";
 
 export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer
-      className="border-t border-gold/10 bg-dark py-16"
+      className="border-t py-16"
+      style={{
+        backgroundColor: "#060b18",
+        borderColor: `${SILVER}0.1)`,
+      }}
       data-ocid="footer.section"
     >
       <div className="container mx-auto px-4">
@@ -34,9 +39,12 @@ export function Footer() {
                 className="h-9 w-auto object-contain"
               />
             </div>
-            <p className="text-white/50 text-sm leading-relaxed mb-6">
-              Nurturing Young Stars Across India. India's trusted kids casting &
-              talent management agency.
+            <p
+              style={{ color: "rgba(200,210,230,0.5)" }}
+              className="text-sm leading-relaxed mb-6"
+            >
+              Nurturing Young Stars Across India. India&apos;s trusted kids
+              casting &amp; talent management agency.
             </p>
             <div className="flex gap-4">
               {socials.map(({ Icon, href, label }) => (
@@ -46,7 +54,11 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-9 h-9 rounded-full glass-card border border-gold/20 flex items-center justify-center text-white/50 hover:text-gold hover:border-gold/50 transition-all"
+                  className="w-9 h-9 rounded-full glass-card flex items-center justify-center transition-all"
+                  style={{
+                    border: `1px solid ${SILVER}0.18)`,
+                    color: "rgba(200,210,230,0.5)",
+                  }}
                   data-ocid="footer.link"
                 >
                   <Icon size={15} />
@@ -64,7 +76,8 @@ export function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-white/50 hover:text-gold text-sm transition-colors"
+                    className="text-sm transition-colors"
+                    style={{ color: "rgba(200,210,230,0.5)" }}
                     data-ocid="footer.link"
                   >
                     {link.label}
@@ -78,21 +91,24 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4 tracking-wide">
               Contact
             </h4>
-            <div className="space-y-2 text-white/50 text-sm">
+            <div
+              className="space-y-2 text-sm"
+              style={{ color: "rgba(200,210,230,0.5)" }}
+            >
               <p>Office No-302, Crystal IT Park,</p>
               <p>Khandwa Road, Indore, MP 452015</p>
               <p className="pt-2">
                 <a
                   href="tel:+919819209964"
-                  className="hover:text-gold transition-colors"
+                  className="hover:opacity-80 transition-opacity"
                 >
-                  +91 9819209964
+                  +91 98192 09964
                 </a>
               </p>
               <p>
                 <a
                   href="mailto:info@sparklefaces.net"
-                  className="hover:text-gold transition-colors"
+                  className="hover:opacity-80 transition-opacity"
                 >
                   info@sparklefaces.net
                 </a>
@@ -101,7 +117,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gold/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/35">
+        <div
+          className="border-t pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm"
+          style={{
+            borderColor: `${SILVER}0.08)`,
+            color: "rgba(200,210,230,0.3)",
+          }}
+        >
           <p>© {year} Sparkle Faces. All rights reserved.</p>
           <p>
             Built with ❤️ using{" "}
@@ -109,7 +131,8 @@ export function Footer() {
               href={`https://caffeine.ai?utm_source=caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gold/60 hover:text-gold transition-colors"
+              className="transition-colors"
+              style={{ color: `${SILVER}0.55)` }}
             >
               caffeine.ai
             </a>
