@@ -10,8 +10,13 @@ import { useInView } from "../hooks/useInView";
 const faqs = [
   {
     id: "refund",
-    q: "Is the ₹3,500 deposit refundable?",
-    a: "Yes, 100%. If your child is not selected after the initial process, the full ₹3,500 is refunded. No questions asked.",
+    q: "Is the security deposit refundable?",
+    a: "Yes, 100%. If your child is not selected after the initial process, the full security deposit is refunded. No questions asked.",
+  },
+  {
+    id: "earnings",
+    q: "How much can my child earn per shoot?",
+    a: "From the 2nd shoot onwards, children earn ₹15,000–₹20,000 per brand shoot. The first shoot focuses on portfolio building and brand placement.",
   },
   {
     id: "age",
@@ -36,7 +41,7 @@ const faqs = [
   {
     id: "after",
     q: "What happens after the shoot?",
-    a: "Your child's portfolio is updated and they become eligible for repeat brand shoots with top brands. We guide you through every next step.",
+    a: "Your child's portfolio is updated and they become eligible for repeat brand shoots with top brands earning ₹15,000–₹20,000 per shoot. We guide you through every next step.",
   },
   {
     id: "experience",

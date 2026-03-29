@@ -17,7 +17,7 @@ const WA_ICON = (
 const CARDS = [
   {
     icon: "💳",
-    title: "₹3,500 is 100% Refundable",
+    title: "Security Deposit is 100% Refundable",
     body: "If your child isn’t selected, every rupee comes back. No questions asked. No paperwork. No delays.",
   },
   {

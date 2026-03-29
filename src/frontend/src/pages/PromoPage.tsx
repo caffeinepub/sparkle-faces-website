@@ -202,6 +202,7 @@ export function PromoPage() {
             </ul>
           </div>
 
+          {/* Earnings / Payout highlight */}
           <div
             className="rounded-xl p-5 mb-8 text-center"
             style={{
@@ -214,7 +215,7 @@ export function PromoPage() {
               className="text-base font-bold mb-1"
               style={{ color: "#E8C97A" }}
             >
-              🔐 Confirm Your Child's Spot
+              💰 Earning Potential
             </p>
             <p
               className="text-2xl font-bold"
@@ -223,13 +224,35 @@ export function PromoPage() {
                 fontFamily: "Playfair Display, serif",
               }}
             >
-              💳 ₹3,500
+              ₹15,000 – ₹20,000 per shoot
             </p>
             <p
               className="text-sm mt-1"
               style={{ color: "rgba(240,236,227,0.6)" }}
             >
-              Refundable Security Deposit
+              From 2nd shoot onwards
+            </p>
+          </div>
+
+          <div
+            className="rounded-xl p-5 mb-8 text-center"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(200,162,90,0.12), rgba(232,201,122,0.06))",
+              border: "1px solid rgba(200,162,90,0.35)",
+            }}
+          >
+            <p
+              className="text-base font-bold mb-1"
+              style={{ color: "#E8C97A" }}
+            >
+              🔐 Confirm Your Child's Spot
+            </p>
+            <p
+              className="text-sm mt-1"
+              style={{ color: "rgba(240,236,227,0.7)" }}
+            >
+              Refundable Security Deposit — 100% returned if not selected
             </p>
           </div>
 
@@ -273,11 +296,8 @@ export function PromoPage() {
               🔁 100% Risk-Free
             </p>
             <p className="text-sm" style={{ color: "rgba(240,236,227,0.65)" }}>
-              If your child is not selected, full{" "}
-              <strong style={{ color: "#E8C97A" }}>
-                ₹3,500 will be refunded
-              </strong>
-              .
+              If your child is not selected, the full security deposit is
+              refunded.
             </p>
           </div>
 

@@ -5,8 +5,13 @@ import { useInView } from "../hooks/useInView";
 const ROWS = [
   {
     feature: "Security Deposit",
-    us: "₹3,500 (100% Refundable)",
+    us: "100% Refundable",
     them: "Non-refundable",
+  },
+  {
+    feature: "Payout per Shoot",
+    us: "₹15,000–₹20,000 (2nd shoot+)",
+    them: "None or minimal",
   },
   { feature: "Brand Network", us: "75+ Premium Brands", them: "Limited" },
   {
