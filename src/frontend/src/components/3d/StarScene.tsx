@@ -236,6 +236,207 @@ export function SectionSparkles() {
   );
 }
 
+// ─── Promo-exclusive elements ────────────────────────────────────────────────
+
+function FloatingDiamonds({ count = 25 }: { count?: number }) {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const geometry = useMemo(() => new THREE.OctahedronGeometry(0.15, 0), []);
+
+  const diamonds = useMemo(
+    () =>
+      Array.from({ length: count }, () => ({
+        position: new THREE.Vector3(
+          (Math.random() - 0.5) * 50,
+          (Math.random() - 0.5) * 36,
+          Math.random() * 6 - 8,
+        ),
+        rotX: Math.random() * Math.PI,
+        rotY: Math.random() * Math.PI,
+        speedX: 0.003 + Math.random() * 0.007,
+        speedY: 0.002 + Math.random() * 0.005,
+        drift: (Math.random() - 0.5) * 0.0015,
+        scale: 0.6 + Math.random() * 0.8,
+      })),
+    [count],
+  );
+
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+
+  useFrame(() => {
+    if (!meshRef.current) return;
+    diamonds.forEach((d, i) => {
+      d.rotX += d.speedX;
+      d.rotY += d.speedY;
+      d.position.y += d.drift;
+      if (d.position.y > 18) d.position.y = -18;
+      if (d.position.y < -18) d.position.y = 18;
+      dummy.position.copy(d.position);
+      dummy.rotation.set(d.rotX, d.rotY, 0);
+      dummy.scale.setScalar(d.scale);
+      dummy.updateMatrix();
+      meshRef.current!.setMatrixAt(i, dummy.matrix);
+    });
+    meshRef.current.instanceMatrix.needsUpdate = true;
+  });
+
+  return (
+    <instancedMesh ref={meshRef} args={[geometry, undefined, count]}>
+      <meshStandardMaterial
+        color={0xc8d4f0}
+        emissive={0x8090c0}
+        emissiveIntensity={0.4}
+        metalness={0.85}
+        roughness={0.1}
+      />
+    </instancedMesh>
+  );
+}
+
+function FloatingRings({ count = 20 }: { count?: number }) {
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const geometry = useMemo(
+    () => new THREE.TorusGeometry(0.25, 0.04, 8, 20),
+    [],
+  );
+
+  const rings = useMemo(
+    () =>
+      Array.from({ length: count }, () => ({
+        position: new THREE.Vector3(
+          (Math.random() - 0.5) * 50,
+          (Math.random() - 0.5) * 36,
+          Math.random() * 6 - 8,
+        ),
+        rotX: Math.random() * Math.PI * 2,
+        rotZ: Math.random() * Math.PI * 2,
+        speedX: (Math.random() - 0.5) * 0.008,
+        speedZ: (Math.random() - 0.5) * 0.006,
+        drift: (Math.random() - 0.5) * 0.0012,
+        scale: 0.7 + Math.random() * 1.2,
+      })),
+    [count],
+  );
+
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+
+  useFrame(() => {
+    if (!meshRef.current) return;
+    rings.forEach((r, i) => {
+      r.rotX += r.speedX;
+      r.rotZ += r.speedZ;
+      r.position.y += r.drift;
+      if (r.position.y > 18) r.position.y = -18;
+      if (r.position.y < -18) r.position.y = 18;
+      dummy.position.copy(r.position);
+      dummy.rotation.set(r.rotX, 0, r.rotZ);
+      dummy.scale.setScalar(r.scale);
+      dummy.updateMatrix();
+      meshRef.current!.setMatrixAt(i, dummy.matrix);
+    });
+    meshRef.current.instanceMatrix.needsUpdate = true;
+  });
+
+  return (
+    <instancedMesh ref={meshRef} args={[geometry, undefined, count]}>
+      <meshStandardMaterial
+        color={0xb0c4de}
+        metalness={0.9}
+        roughness={0.1}
+        transparent
+        opacity={0.75}
+      />
+    </instancedMesh>
+  );
+}
+
+function DriftingOrbs({ count = 8 }: { count?: number }) {
+  const orbs = useMemo(
+    () =>
+      Array.from({ length: count }, (_, id) => ({
+        position: new THREE.Vector3(
+          (Math.random() - 0.5) * 50,
+          (Math.random() - 0.5) * 36,
+          Math.random() * 6 - 8,
+        ),
+        radius: 0.6 + Math.random() * 0.6,
+        opacity: 0.04 + Math.random() * 0.04,
+        driftX: (Math.random() - 0.5) * 0.001,
+        driftY: (Math.random() - 0.5) * 0.0008,
+        phase: Math.random() * Math.PI * 2,
+        id,
+      })),
+    [count],
+  );
+
+  const refs = useRef<(THREE.Mesh | null)[]>([]);
+
+  useFrame((state) => {
+    const t = state.clock.elapsedTime;
+    orbs.forEach((orb, i) => {
+      const mesh = refs.current[i];
+      if (!mesh) return;
+      orb.position.x += orb.driftX;
+      orb.position.y += orb.driftY;
+      if (orb.position.x > 25) orb.position.x = -25;
+      if (orb.position.x < -25) orb.position.x = 25;
+      if (orb.position.y > 18) orb.position.y = -18;
+      if (orb.position.y < -18) orb.position.y = 18;
+      mesh.position.copy(orb.position);
+      const pulse = 1 + Math.sin(t * 0.4 + orb.phase) * 0.05;
+      mesh.scale.setScalar(pulse);
+    });
+  });
+
+  return (
+    <>
+      {orbs.map((orb, i) => (
+        <mesh
+          key={orb.id}
+          ref={(el) => {
+            refs.current[i] = el;
+          }}
+          position={orb.position.toArray() as [number, number, number]}
+        >
+          <sphereGeometry args={[orb.radius, 12, 12]} />
+          <meshStandardMaterial
+            color={0x7090c0}
+            emissive={0x4060a0}
+            emissiveIntensity={0.3}
+            transparent
+            opacity={orb.opacity}
+            depthWrite={false}
+          />
+        </mesh>
+      ))}
+    </>
+  );
+}
+
+export function PromoSparkles() {
+  return (
+    <div
+      className="pointer-events-none"
+      style={{
+        position: "fixed",
+        inset: 0,
+        opacity: 0.7,
+        zIndex: 0,
+      }}
+    >
+      <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
+        <ambientLight intensity={0.2} />
+        <pointLight position={[8, 8, 5]} intensity={1.2} color={0xb0c4de} />
+        <pointLight position={[-8, -6, 4]} intensity={0.7} color={0x8090c0} />
+        <SmallStars count={60} />
+        <FloatingParticles count={100} />
+        <FloatingDiamonds count={25} />
+        <FloatingRings count={20} />
+        <DriftingOrbs count={8} />
+      </Canvas>
+    </div>
+  );
+}
+
 export function NavStar() {
   return (
     <svg
