@@ -39,12 +39,7 @@ export function ContactSection() {
         );
       }
       toast.success("Message sent! We'll get back to you soon.");
-      setForm({
-        name: "",
-        email: "",
-        phone: "",
-        message: "",
-      });
+      setForm({ name: "", email: "", phone: "", message: "" });
     } catch {
       toast.error("Failed to send message. Please try again.");
     } finally {
@@ -145,9 +140,7 @@ export function ContactSection() {
                   <p className="text-white/40 text-xs uppercase tracking-widest mb-1">
                     Client Servicing
                   </p>
-                  <p className="text-white/80 text-sm">
-                    Khan Hammad Shakir Hussain
-                  </p>
+                  <p className="text-white/80 text-sm">Kunal Chaudhary</p>
                 </div>
               </div>
             </div>

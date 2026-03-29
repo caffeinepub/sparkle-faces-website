@@ -12,6 +12,8 @@ const testimonials = [
     name: "Priya M.",
     city: "Mumbai",
     initials: "PM",
+    photo:
+      "/assets/uploads/little_star_with_big_dreams_shining_brighter_every_day._portfolio_kidsmodeling_kidsbrandsho-019d3b51-1dc3-7351-83c2-7e68011234c6-2.jpg",
   },
   {
     id: "t2",
@@ -20,6 +22,8 @@ const testimonials = [
     name: "Rahul S.",
     city: "Delhi",
     initials: "RS",
+    photo:
+      "/assets/uploads/a_little_star_shines_brighter_when_shared_with_mom_from_his_first_brand_shoot_with_persona_ki-019d3b51-1e6c-7641-9da8-d4aa9d975f92-4.jpg",
   },
   {
     id: "t3",
@@ -28,6 +32,48 @@ const testimonials = [
     name: "Anita K.",
     city: "Bangalore",
     initials: "AK",
+    photo:
+      "/assets/uploads/img_20260325_190346_869-019d3b51-1dd4-7344-a164-435de6281c6d-3.jpg",
+  },
+  {
+    id: "t4",
+    quote:
+      "We were nervous at first, but Sparkle Faces made the entire process so smooth and reassuring. My son looked like a star on shoot day!",
+    name: "Meera P.",
+    city: "Ahmedabad",
+    initials: "MP",
+    photo:
+      "/assets/uploads/img_20260325_190336_057-019d3b51-1f7e-758f-b795-b78567816e39-6.jpg",
+  },
+  {
+    id: "t5",
+    quote:
+      "Incredible experience from start to finish. The studio was world-class and the team treated our daughter like royalty. Highly recommend!",
+    name: "Sanjay B.",
+    city: "Kolkata",
+    initials: "SB",
+    photo:
+      "/assets/uploads/pure_innocence_pure_charm_little_moments_big_memories_future_star_in_the_making_1-019d3b51-1faf-77fe-8c2e-8679ab04a173-7.jpg",
+  },
+  {
+    id: "t6",
+    quote:
+      "My child's confidence has grown so much after working with Sparkle Faces. The grooming sessions and professional guidance are truly exceptional.",
+    name: "Deepika R.",
+    city: "Hyderabad",
+    initials: "DR",
+    photo:
+      "/assets/uploads/img_20260325_190304_856-019d3b51-1c5e-736a-be51-367a3d5d4490-1.jpg",
+  },
+  {
+    id: "t7",
+    quote:
+      "Transparent pricing, professional team, and a stunning portfolio for our little one. Sparkle Faces delivered beyond our expectations!",
+    name: "Vikram J.",
+    city: "Pune",
+    initials: "VJ",
+    photo:
+      "/assets/uploads/img_20260325_194724_128-019d3b51-1e4a-7754-8a77-251a28e6264a-5.jpg",
   },
 ];
 
@@ -38,6 +84,8 @@ export function TestimonialsSection() {
   const prev = () =>
     setCurrent((c) => (c - 1 + testimonials.length) % testimonials.length);
   const next = () => setCurrent((c) => (c + 1) % testimonials.length);
+
+  const t = testimonials[current];
 
   return (
     <section
@@ -78,21 +126,28 @@ export function TestimonialsSection() {
             >
               <Quote size={48} className="text-gold/20 mx-auto mb-6" />
               <p className="text-white/80 text-xl leading-relaxed font-heading italic mb-8">
-                "{testimonials[current].quote}"
+                "{t.quote}"
               </p>
               <div className="flex items-center justify-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-gold/20 border border-gold/40 flex items-center justify-center">
-                  <span className="text-gold font-bold text-sm">
-                    {testimonials[current].initials}
-                  </span>
+                <div className="w-14 h-14 rounded-full border-2 border-gold/40 overflow-hidden flex-shrink-0">
+                  <img
+                    src={t.photo}
+                    alt={t.name}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      const target = e.currentTarget as HTMLImageElement;
+                      target.style.display = "none";
+                      const parent = target.parentElement;
+                      if (parent) {
+                        parent.style.background = "rgba(212,175,55,0.2)";
+                        parent.innerHTML = `<span style="color:#D4AF37;font-weight:bold;font-size:14px;display:flex;align-items:center;justify-content:center;height:100%;">${t.initials}</span>`;
+                      }
+                    }}
+                  />
                 </div>
                 <div className="text-left">
-                  <p className="text-white font-semibold">
-                    {testimonials[current].name}
-                  </p>
-                  <p className="text-white/50 text-sm">
-                    {testimonials[current].city}
-                  </p>
+                  <p className="text-white font-semibold">{t.name}</p>
+                  <p className="text-white/50 text-sm">{t.city}</p>
                 </div>
               </div>
             </motion.div>

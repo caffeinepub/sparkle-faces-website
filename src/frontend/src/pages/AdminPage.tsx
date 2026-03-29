@@ -7,9 +7,10 @@ import {
   Mail,
   MessageSquare,
   Shield,
+  Sliders,
   Users,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { NavStar } from "../components/3d/StarScene";
 import { useActor } from "../hooks/useActor";
@@ -65,6 +66,62 @@ function AdminContactsTab() {
       <Mail size={40} className="mx-auto mb-4 opacity-30" />
       <p>
         Contact submissions will be available once the backend is configured.
+      </p>
+    </div>
+  );
+}
+
+const SLOT_OPTIONS = [2, 5, 7, 9, 11];
+
+function AdminSlotsTab() {
+  const [current, setCurrent] = useState(2);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("sparkle_slots_remaining");
+    if (stored) setCurrent(Number(stored));
+  }, []);
+
+  const handleSet = (val: number) => {
+    localStorage.setItem("sparkle_slots_remaining", String(val));
+    setCurrent(val);
+    toast.success(`Slot count updated to ${val}`);
+  };
+
+  return (
+    <div className="max-w-md" data-ocid="slots.panel">
+      <h2 className="font-heading text-xl font-bold text-white mb-2">
+        Manage Available Slots
+      </h2>
+      <p className="text-white/40 text-sm mb-8">
+        Control how many slots show as remaining on the website.
+      </p>
+      <div className="flex flex-wrap gap-3">
+        {SLOT_OPTIONS.map((val) => (
+          <button
+            type="button"
+            key={val}
+            onClick={() => handleSet(val)}
+            className="w-16 h-16 rounded-2xl text-xl font-bold transition-all duration-200"
+            style={{
+              background:
+                current === val
+                  ? "rgba(200,162,90,0.2)"
+                  : "rgba(255,255,255,0.05)",
+              border:
+                current === val
+                  ? "2px solid rgba(200,162,90,0.7)"
+                  : "1px solid rgba(255,255,255,0.1)",
+              color: current === val ? "#E8C97A" : "rgba(255,255,255,0.5)",
+            }}
+            data-ocid={`slots.button.${val}`}
+          >
+            {val}
+          </button>
+        ))}
+      </div>
+      <p className="text-white/30 text-xs mt-6">
+        Currently showing:{" "}
+        <span style={{ color: "#E8C97A" }}>{current} slots remaining</span>
       </p>
     </div>
   );
@@ -173,6 +230,9 @@ export function AdminPage() {
             <TabsTrigger value="contacts" data-ocid="admin.tab">
               Contacts
             </TabsTrigger>
+            <TabsTrigger value="slots" data-ocid="admin.tab">
+              <Sliders size={14} className="mr-1" /> Slots
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="portfolio">
             <AdminPortfolioTab />
@@ -185,6 +245,9 @@ export function AdminPage() {
           </TabsContent>
           <TabsContent value="contacts">
             <AdminContactsTab />
+          </TabsContent>
+          <TabsContent value="slots">
+            <AdminSlotsTab />
           </TabsContent>
         </Tabs>
       </main>
