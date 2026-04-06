@@ -31,6 +31,7 @@ interface FormData {
   parentName: string;
   contactNumber: string;
   registrationDate: string;
+  amount: string;
 }
 
 export function SlotConfirmationPage() {
@@ -39,6 +40,7 @@ export function SlotConfirmationPage() {
     parentName: "",
     contactNumber: "",
     registrationDate: new Date().toISOString().split("T")[0],
+    amount: "3500",
   });
   const [showLetter, setShowLetter] = useState(false);
   const [confirmationNumber] = useState(generateConfirmationNumber);
@@ -100,6 +102,10 @@ export function SlotConfirmationPage() {
     month: "long",
     year: "numeric",
   });
+
+  const formattedAmount = formData.amount
+    ? Number(formData.amount).toLocaleString("en-IN")
+    : "0";
 
   return (
     <>
@@ -369,6 +375,27 @@ export function SlotConfirmationPage() {
                     {errors.contactNumber}
                   </p>
                 )}
+              </div>
+
+              {/* Registration Amount */}
+              <div>
+                <label htmlFor="amount" style={labelStyle}>
+                  Registration Amount (₹)
+                </label>
+                <input
+                  id="amount"
+                  type="text"
+                  placeholder="Enter amount (e.g. 3500)"
+                  value={formData.amount}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      amount: e.target.value,
+                    }))
+                  }
+                  style={inputStyle}
+                  data-ocid="slot-confirmation.input"
+                />
               </div>
 
               {/* Registration Date */}
@@ -649,7 +676,7 @@ export function SlotConfirmationPage() {
                 className="text-4xl font-bold gold-gradient mb-3"
                 style={{ fontFamily: "Playfair Display, serif" }}
               >
-                ₹3,500
+                ₹{formattedAmount}
               </p>
               <p
                 className="text-xs leading-relaxed px-4 inline-block py-2 rounded-full"
@@ -660,8 +687,8 @@ export function SlotConfirmationPage() {
                   letterSpacing: "0.02em",
                 }}
               >
-                Note: If your child is not selected, the full amount of ₹3,500
-                will be refunded to you.
+                Note: If your child is not selected, the full amount of ₹
+                {formattedAmount} will be refunded to you.
               </p>
             </motion.div>
 
@@ -686,12 +713,12 @@ export function SlotConfirmationPage() {
                   [
                     "👗",
                     "Dress Code",
-                    "Bring 2–3 clean, well-fitted outfits in solid colors. Avoid heavy patterns or logos.",
+                    "All costumes are provided by Sparkle Faces. No need to bring any clothing or outfits.",
                   ],
                   [
                     "🎒",
                     "What to Bring",
-                    "Comb / brush, snacks for your child, and any comfort items (favourite toy, etc.).",
+                    "Please bring appropriate footwear for your child. Everything else is taken care of by us.",
                   ],
                   [
                     "🤝",
