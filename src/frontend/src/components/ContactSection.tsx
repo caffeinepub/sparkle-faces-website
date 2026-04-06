@@ -155,7 +155,7 @@ export function ContactSection() {
                       style={{ color: "rgba(220,228,245,0.8)" }}
                       className="text-sm"
                     >
-                      Kunal Chaudhary
+                      Khan Hammad Shakir Hussain
                     </p>
                   ),
                 },

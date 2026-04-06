@@ -19,6 +19,7 @@ import { TestimonialsSection } from "./components/TestimonialsSection";
 import { TrustSection } from "./components/TrustSection";
 import { AdminPage } from "./pages/AdminPage";
 import { PromoPage } from "./pages/PromoPage";
+import { SlotConfirmationPage } from "./pages/SlotConfirmationPage";
 
 export default function App() {
   const path = window.location.pathname;
@@ -36,6 +37,15 @@ export default function App() {
     return (
       <>
         <PromoPage />
+        <Toaster />
+      </>
+    );
+  }
+
+  if (path === "/slot-confirmation") {
+    return (
+      <>
+        <SlotConfirmationPage />
         <Toaster />
       </>
     );
